@@ -34,6 +34,15 @@ switch(filter_input(INPUT_GET, 'method')){
       $json['count'] = floatval($matches[1]);
     }
     break;
-}
 
-echo json_encode($json);  
+   case 'stumbleUpon':
+    $response = file_get_contents("http://www.stumbleupon.com/services/1.01/badge.getinfo?url=".urlencode($json['url']), false, $context); 
+    if (!empty($response) && ($result = json_decode($response)) && isset($result->result->views))
+    {
+        $json['count'] = floatval((int)$result->result->views);
+    }
+
+    break;
+   }
+
+  echo json_encode($json);  

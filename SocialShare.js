@@ -235,6 +235,7 @@
             'facebook': facebook,
             'vk': vk,
             'plus': plus,
+            'stumbleupon': stumbleupon,
             'myworld': myworld,
             'linkedin': linkedin,
             'odnoklassniki': odnoklassniki,
@@ -282,11 +283,22 @@
                 type: 'GET',
                 dataType: 'json',
                 url: options.parser,
-                data: $.extend(options.parserParams, {method: 'googlePlus', url: url, format: 'json'})
+                data: $.extend(options.parserParams, {method: 'googlePlus', url: url})
             })
             .done(function (data){ callback(data.count); })
             .fail(function(){ callback(0); });
-        }        
+        }   
+        
+        function stumbleupon(url, callback){
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: options.parser,
+                data: $.extend(options.parserParams, {method: 'stumbleUpon', url: url})
+            })
+            .done(function (data){ callback(data.count); })
+            .fail(function(){ callback(0); });
+        }           
 
         function vk(url, callback){
             VK = {
