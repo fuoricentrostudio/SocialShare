@@ -17,8 +17,7 @@
             text: '',
             image: '',
             url: window.location.href,
-            class_prefix: 's_',
-            parser: 'parse.php'
+            class_prefix: 's_'
         };
 
         var options = $.extend({}, defaults, options);
@@ -222,7 +221,9 @@
         var defaults = {
             url: window.location.href,
             class_prefix: 'c_',
-            display_counter_from: 0
+            display_counter_from: 0,
+            parser: 'parser.php',
+            parserParams: {}            
         };
 
         var options = $.extend({}, defaults, options);
@@ -233,6 +234,7 @@
             'twitter': twitter,
             'facebook': facebook,
             'vk': vk,
+            'plus': plus,
             'myworld': myworld,
             'linkedin': linkedin,
             'odnoklassniki': odnoklassniki,
@@ -274,6 +276,17 @@
             .done(function (data){ callback(data[0].share_count); })
             .fail(function(){ callback(0); });
         }
+        
+        function plus(url, callback){
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: options.parser,
+                data: $.extend(options.parserParams, {method: 'googlePlus', url: url, format: 'json'})
+            })
+            .done(function (data){ callback(data.count); })
+            .fail(function(){ callback(0); });
+        }        
 
         function vk(url, callback){
             VK = {
