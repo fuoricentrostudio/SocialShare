@@ -17,7 +17,8 @@
             text: '',
             image: '',
             url: window.location.href,
-            class_prefix: 's_'
+            class_prefix: 's_',
+            parser: 'parse.php'
         };
 
         var options = $.extend({}, defaults, options);
@@ -185,7 +186,7 @@
             youmob: 'http://youmob.com/mobit.aspx?title={title}&mob={url}',
             zakladoknet: 'http://zakladok.net/link/?u={url}&t={title}',
             ziczac: 'http://ziczac.it/a/segnala/?gurl={url}&gtit={title}'
-        }
+        };
 
         function link(network){
             var url = templates[network];
@@ -200,7 +201,7 @@
             var classlist = get_class_list(elem);
             for(var i = 0; i < classlist.length; i++){
                 var cls = classlist[i];
-                if(cls.substr(0, class_prefix_length) == options.class_prefix && templates[cls.substr(class_prefix_length)]){
+                if(cls.substr(0, class_prefix_length) === options.class_prefix && templates[cls.substr(class_prefix_length)]){
                     var final_link = link(cls.substr(class_prefix_length));
                     $(elem).attr('href', final_link).click(function(){
                         var screen_width = screen.width;
@@ -215,7 +216,7 @@
                 }
             }
         });
-    }
+    };
 
     $.fn.ShareCounter = function(options){
         var defaults = {
@@ -226,7 +227,7 @@
 
         var options = $.extend({}, defaults, options);
 
-        var class_prefix_length = options.class_prefix.length
+        var class_prefix_length = options.class_prefix.length;
 
         var social = {
             'twitter': twitter,
@@ -236,18 +237,18 @@
             'linkedin': linkedin,
             'odnoklassniki': odnoklassniki,
             'pinterest': pinterest
-        }
+        };
 
         this.each(function(i, elem){
             var classlist = get_class_list(elem);
             for(var i = 0; i < classlist.length; i++){
                 var cls = classlist[i];
-                if(cls.substr(0, class_prefix_length) == options.class_prefix && social[cls.substr(class_prefix_length)]){
+                if(cls.substr(0, class_prefix_length) === options.class_prefix && social[cls.substr(class_prefix_length)]){
                     social[cls.substr(class_prefix_length)](options.url, function(count){
                         if (count >= options.display_counter_from){
                             $(elem).text(count);
                         }
-                    })
+                    });
                 }
             }
         });
@@ -259,8 +260,8 @@
                 url : 'https://cdn.api.twitter.com/1/urls/count.json',
                 data : {'url': url}
             })
-            .done(function(data){callback(data.count);})
-            .fail(function(data){callback(0);})
+            .done(function(data){ callback(data.count); })
+            .fail(function(data){ callback(0); });
         }
 
         function facebook(url, callback){
@@ -270,8 +271,8 @@
                 url: 'https://api.facebook.com/restserver.php',
                 data: {'method': 'links.getStats', 'urls': [url], 'format': 'json'}
             })
-            .done(function (data){callback(data[0].share_count)})
-            .fail(function(){callback(0);})
+            .done(function (data){ callback(data[0].share_count); })
+            .fail(function(){ callback(0); });
         }
 
         function vk(url, callback){
@@ -281,7 +282,7 @@
                         callback(value);
                     }
                 }
-            }
+            };
 
             $.ajax({
                 type: 'GET',
@@ -290,10 +291,10 @@
                 data: {'act': 'count', 'index': 0, 'url': url}
             })
             .fail(function(data, status){
-                if(status != 'parsererror'){
+                if(status !== 'parsererror'){
                     callback(0);
                 }
-            })
+            });
         }
 
         function myworld(url, callback){
@@ -305,8 +306,8 @@
                 jsonp: 'func',
                 data: {'url_list': url, 'callback': '1'}
             })
-            .done(function(data){callback(data[url].shares)})
-            .fail(function(data){callback(0)})
+            .done(function(data){ callback(data[url].shares); })
+            .fail(function(data){ callback(0); });
         }
 
         function linkedin(url, callback){
@@ -316,8 +317,8 @@
                 url: 'https://www.linkedin.com/countserv/count/share',
                 data: {'url': url, 'format': 'jsonp'}
             })
-            .done(function(data){callback(data.count)})
-            .fail(function(){callback(0)})
+            .done(function(data){ callback(data.count); })
+            .fail(function(){ callback(0); });
         }
 
         function odnoklassniki(url, callback){
@@ -328,8 +329,8 @@
                 jsonp: 'cb',
                 data: {'st.cmd': 'shareData', 'ref': url}
             })
-            .done(function(data){callback(parseInt(data.count))})
-            .fail(function(){callback(0)})
+            .done(function(data){ callback(parseInt(data.count)); })
+            .fail(function(){ callback(0); });
         }
 
         function pinterest(url, callback){
@@ -339,10 +340,10 @@
                 url: 'https://api.pinterest.com/v1/urls/count.json',
                 data: {'url': url}
             })
-            .done(function(data){callback(data.count)})
-            .fail(function(){callback(0)})
+            .done(function(data){ callback(data.count); })
+            .fail(function(){ callback(0); });
         }
 
-    }
+    };
 
 })(jQuery);
