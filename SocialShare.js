@@ -222,7 +222,7 @@
             url: window.location.href,
             class_prefix: 'c_',
             display_counter_from: 0,
-            parser: 'parser.php',
+            parser: 'server.php',
             parserParams: {}            
         };
 

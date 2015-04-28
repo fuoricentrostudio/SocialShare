@@ -1,0 +1,29 @@
+{
+    "name": "fuoricentrostudio/socialshare",
+    "type": "project",
+    "title": "SocialShare - jQuery plugin",
+    "description": "jQuery plugin for creating custom share buttons and counters",
+    "keywords": [
+        "social",
+        "share",
+        "jquery-plugin"
+    ],
+    "repositories": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/fuoricentrostudio/social-shares-counter.git"        
+        }
+    ],    
+    "authors": [
+        {
+        "name" : "Brando Meniconi",
+        "email" : "b.meniconi@fuoricentrostudio.com",
+        "homepage" : "http://www.fuoricentrostudio.com"
+        }
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/AyumuKasuga/SocialShare/",
+    "require": {
+        "fuoricentrostudio/socialsharescounter": "dev-master"
+    }
+}
